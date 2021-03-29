@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+<body>
+  <input type="text" id="msg">
+  <button onclick="send()">Accept</button>
+  <script>
+    let socket = new WebSocket("ws://localhost:1323/ws")
+    console.log("Attempting Websocket Connection")
+    socket.onopen = () => {
+        console.log("Successfully Connected")
+        socket.send("Hi From The Client")
+      }
+    socket.onclose = (evnet)  => {
+      console.log("Socket Closed Connection: ", event)
+    }
+    socket.onerror = (error) => {
+      console.log("Socket Error: ", error)
+    }
+  
+    function send() {
+      var input = document.getElementById("msg").value
+      socket.send(input)
+    }
+
+  </script>
+</body>
+</html>
